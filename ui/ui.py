@@ -13,11 +13,13 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.class_col = 'last'                 # class's column in dataset,by default it's the last column
         self.train_data = 50                    # amount of training data based on percent,by default is 50%
         self.tr = None
+        self.selection_type = 'F'               # selection type of choosing training data,default is from first
         self.rd_last.setChecked(True)
-
+        self.rd_from_first.setChecked(True)
 
         self.sldr_data.valueChanged.connect(self.slider_value)
         self.btn_choose_dataset.clicked.connect(self.check_file)
+        self.btn_split_data.clicked.connect(self.split_tr_data)
         self.show_step(self.grp_step1)
 
         '''     set shortcuts for menu items    '''
@@ -36,7 +38,15 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
     def show_step(self, a):
         self.grp_step1.hide()
         self.grp_step2.hide()
+        self.grp_step3.hide()
         a.show()
+
+    def show_steps(self, a, b):
+        self.grp_step1.hide()
+        self.grp_step2.hide()
+        self.grp_step3.hide()
+        a.show()
+        b.show()
 
     '''     functions for step1     '''
 
@@ -53,6 +63,12 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
 
     '''     functions for step2     '''
 
+    def set_selection_type(self):
+        if self.rd_from_first.isChecked():
+            self.selection_type = 'F'
+        elif self.rd_from_end.isChecked():
+            self.selection_type = 'E'
+
     def set_class_col(self):
         if self.rd_first.isChecked():
             self.class_col = 'first'
@@ -61,10 +77,15 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
 
     def slider_value(self):
         self.train_data = self.sldr_data.value()
-        self.lcd_data.display()
+        self.lcd_data.display(self.train_data)
         self.lbl_step2_status.setText(str(self.train_data)+"% of dataset will be used as Training data.")
         self.lbl_step2_status.setStyleSheet("color:green;")
 
     def split_tr_data(self):
         self.set_class_col()
-        self.tr = training.Training(self.data_path, self.class_col, self.train_data)
+        self.set_selection_type()
+        self.tr = training.Training(self.data_path, self.class_col, self.train_data, self.selection_type)
+        self.show_steps(self.grp_step2, self.grp_step3)
+        self.lbl_training_amount.setText('total rows of training data:'+str(self.tr.train_rows))
+        self.lbl_all_amount.setText('total rows of whole data:'+str(self.tr.total_rows))
+        self.tr.start_training()
