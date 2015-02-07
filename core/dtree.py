@@ -26,5 +26,5 @@ class DTree():
             elif isinstance(self.childs[i], DTree):
                 DTree.print_tree(self.childs[i])
             else:
-                print('None')
+                print('None found')
         print('end of class')
