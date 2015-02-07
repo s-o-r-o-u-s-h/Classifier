@@ -4,16 +4,18 @@ import numpy
 
 class Training():
     def __init__(self, data_path, class_col, train_data, selection_type):
-        self.data_path = data_path                                                      # data full path
-        self.class_col = class_col                                                      # class column
-        self.train_data_p = train_data/100                                              # amount of train data
-        self.selection_mode = selection_type                                            # mode of choosing training data
-        self.file = open(data_path, 'r')                                                # data file stream
-        self.total_rows = 625                                                           # total rows of a file
-        self.data_string = self.file.readline()                                         # converting contents to string
+        self.data_path = data_path                                         # data full path
+        self.class_col = class_col                                         # class column
+        self.train_data_p = train_data/100                                 # amount of train data
+        self.selection_mode = selection_type                               # mode of choosing training data
+        self.file = open(data_path, 'r')                                   # data file stream
+        self.total_rows = 625                                              # total rows of a file
+        self.data_string = self.file.readline()                            # converting contents to string
         self.data_array = numpy.fromstring(self.data_string, dtype=int, sep=',').reshape((self.total_rows, 5))
-        self.train_rows = int(self.total_rows * self.train_data_p)                      # total rows of training data
-        self.e_start_total = 0
+        self.train_rows = int(self.total_rows * self.train_data_p)         # total rows of training data
+        self.e_start_total = 0                                             # Starting Entropy for each step of splitting
+        self.inf_gain = []                                                 # temporary list for holding information gain
+        self.temp_array = numpy.array((0, 1))                              # just a temporary array for setting Inf gain
         if self.selection_mode == 'F':
             self.training_array = self.data_array[0:self.train_rows, 0:5]
         elif self.selection_mode == 'E':
@@ -21,10 +23,13 @@ class Training():
 
     def start_training(self):
         if self.class_col == 'first':
-            self.class_col = 4
-        if self.class_col == 'last':
             self.class_col = 0
+        if self.class_col == 'last':
+            self.class_col = 4
         self.set_e_start_total()
+        for i in range(0, 4):
+            self.inf_gain.append(self.set_inf_gain(self.training_array, i))
+        print(self.inf_gain)
 
     '''     First step of C4.5 algorithm is calculating 'Starting Entropy' of training data.
             We call it e_start_total and use the following function to calculate it      '''
@@ -35,5 +40,23 @@ class Training():
             [m, n] = self.training_array[self.training_array[:, self.class_col] == i].shape
             self.e_start_total -= (m/self.train_rows)*numpy.log2(m/self.train_rows)
 
-    def inf_gain(self):
-        pass
+    '''     After that we should calculate the 'New Entropy' for each column and then difference
+            between Starting Entropy and New Entropy gives us 'Information Gain' of each column.
+    '''
+
+    def set_inf_gain(self, array, col_number):
+        self.temp_array = array
+        arr = numpy.unique(self.temp_array[:, col_number]).tolist()
+        col_e_new = 0
+        this_total_rows = 0
+        for i in arr:
+            x = self.temp_array[self.temp_array[:, col_number] == i]
+            [m, n] = x.shape
+            this_total_rows += m
+            arr2 = numpy.unique(x[:, self.class_col]).tolist()
+            for j in arr2:
+                [o, p] = x[x[:, self.class_col] == j].shape
+                col_e_new -= (o*numpy.log2(o))
+            col_e_new += (m*numpy.log2(m))
+        col_e_new = col_e_new / this_total_rows
+        return self.e_start_total - col_e_new
