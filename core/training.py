@@ -29,7 +29,6 @@ class Training():
         self.set_e_start_total()
         for i in range(0, 4):
             self.inf_gain.append(self.set_inf_gain(self.training_array, i))
-        print(self.inf_gain)
 
     '''     First step of C4.5 algorithm is calculating 'Starting Entropy' of training data.
             We call it e_start_total and use the following function to calculate it      '''
@@ -40,9 +39,9 @@ class Training():
             [m, n] = self.training_array[self.training_array[:, self.class_col] == i].shape
             self.e_start_total -= (m/self.train_rows)*numpy.log2(m/self.train_rows)
 
-    '''     After that we should calculate the 'New Entropy' for each column and then difference
-            between Starting Entropy and New Entropy gives us 'Information Gain' of each column.
-    '''
+    '''     After that we should calculate the 'New Entropy' for each column and then
+            difference between Starting Entropy and New Entropy gives us 'Information Gain'
+            of each column.                                                              '''
 
     def set_inf_gain(self, array, col_number):
         self.temp_array = array
@@ -60,3 +59,12 @@ class Training():
             col_e_new += (m*numpy.log2(m))
         col_e_new = col_e_new / this_total_rows
         return self.e_start_total - col_e_new
+
+    def get_max_inf_gain(self, inf_gain):
+        max_index = -1
+        ma_x = -1
+        for i in range(len(inf_gain)):
+            if inf_gain[i] > ma_x:
+                ma_x = inf_gain[i]
+                max_index = i
+        return ma_x, max_index
