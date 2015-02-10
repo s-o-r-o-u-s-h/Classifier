@@ -27,7 +27,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>0</y>
       <width>431</width>
       <height>111</height>
      </rect>
@@ -130,7 +130,7 @@ border-radius:6px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>130</y>
+      <y>120</y>
       <width>431</width>
       <height>191</height>
      </rect>
@@ -355,7 +355,7 @@ border-radius:6px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>340</y>
+      <y>320</y>
       <width>431</width>
       <height>141</height>
      </rect>
@@ -367,7 +367,7 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>60</y>
+       <y>50</y>
        <width>351</width>
        <height>16</height>
       </rect>
@@ -380,7 +380,7 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>80</y>
+       <y>70</y>
        <width>351</width>
        <height>16</height>
       </rect>
@@ -392,7 +392,7 @@ border-radius:6px;</string>
     <widget class="QPushButton" name="btn_begin_train">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>333</x>
        <y>110</y>
        <width>75</width>
        <height>26</height>
@@ -414,7 +414,7 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>20</y>
        <width>351</width>
        <height>31</height>
       </rect>
@@ -427,6 +427,35 @@ border-radius:6px;</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Status:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_step3_status">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>120</y>
+       <width>221</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:0;</string>
+     </property>
+     <property name="text">
+      <string>Waiting...</string>
      </property>
     </widget>
    </widget>

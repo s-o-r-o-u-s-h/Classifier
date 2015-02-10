@@ -1,5 +1,5 @@
 __author__ = 'soroush'
-
+import numpy
 
 class DTree():
     def __init__(self, attribute, values):
@@ -12,7 +12,7 @@ class DTree():
 
     def add_child(self, value, child):
         if value in self.values and self.childs[value] is None:
-            self.childs[value] = DTree(child.attr_name, child.values)
+            self.childs[value] = child
         else:
             print('not allowed')
 
@@ -27,14 +27,19 @@ class DTree():
             function helps to search a tree without any specific approach we
             know in Graph search algorithms.                                    '''
 
-    def print_tree(self):
-        print('att', self.attr_name, 'values:')
+    def print_tree(self, counter=0):
+        s = ''
+        for j in range(0, counter):
+            s += '\t'
+        counter += 1
+        print(s, 'att', self.attr_name, 'values:')
         for i in self.values:
-            print(i)
+            print(s, i)
             if isinstance(self.childs[i], type(1)):
-                print('class:', self.childs[i])
+                print(s, 'class:', self.childs[i])
             elif isinstance(self.childs[i], DTree):
-                DTree.print_tree(self.childs[i])
+                DTree.print_tree(self.childs[i], counter)
             else:
-                print('None found')
-        print('EOT')
+                print(s, 'None found')
+        print(s, 'EOT')
+        counter -= 1

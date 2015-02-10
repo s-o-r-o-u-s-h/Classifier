@@ -1,6 +1,6 @@
 __author__ = 'soroush'
 from PyQt4 import QtGui, uic
-from core import training
+from core import training, dtree
 
 form_ui = uic.loadUiType("ui/mainWindow.ui")[0]
 
@@ -16,10 +16,11 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.selection_type = 'F'               # selection type of choosing training data,default is from first
         self.rd_last.setChecked(True)
         self.rd_from_first.setChecked(True)
-
+        self.tree = None
         self.sldr_data.valueChanged.connect(self.slider_value)
         self.btn_choose_dataset.clicked.connect(self.check_file)
         self.btn_split_data.clicked.connect(self.split_tr_data)
+        self.btn_begin_train.clicked.connect(self.begin_training)
         self.show_step(self.grp_step1)
 
         '''     set shortcuts for menu items    '''
@@ -88,4 +89,9 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.show_steps(self.grp_step2, self.grp_step3)
         self.lbl_training_amount.setText('total rows of training data:'+str(self.tr.train_rows))
         self.lbl_all_amount.setText('total rows of whole data:'+str(self.tr.total_rows))
-        self.tr.start_training()
+
+    def begin_training(self):
+        self.show_step(self.grp_step3)
+        self.tree = self.tr.start_training()
+        self.lbl_step3_status.setText('Tree created successfully!')
+        self.lbl_step3_status.setStyleSheet("color:green;")
