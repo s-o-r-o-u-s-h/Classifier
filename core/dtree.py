@@ -1,5 +1,5 @@
 __author__ = 'soroush'
-import numpy
+
 
 class DTree():
     def __init__(self, attribute, values):

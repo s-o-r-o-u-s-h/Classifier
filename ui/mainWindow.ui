@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>818</width>
-    <height>599</height>
+    <width>812</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -132,7 +132,7 @@ border-radius:6px;</string>
       <x>10</x>
       <y>120</y>
       <width>431</width>
-      <height>191</height>
+      <height>201</height>
      </rect>
     </property>
     <property name="title">
@@ -255,7 +255,7 @@ border-radius: 6px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>167</y>
+       <y>179</y>
        <width>41</width>
        <height>20</height>
       </rect>
@@ -268,7 +268,7 @@ border-radius: 6px;</string>
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>167</y>
+       <y>179</y>
        <width>221</width>
        <height>20</height>
       </rect>
@@ -284,7 +284,7 @@ border-radius: 6px;</string>
      <property name="geometry">
       <rect>
        <x>333</x>
-       <y>160</y>
+       <y>172</y>
        <width>75</width>
        <height>26</height>
       </rect>
@@ -305,9 +305,9 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>107</y>
        <width>351</width>
-       <height>41</height>
+       <height>61</height>
       </rect>
      </property>
      <widget class="QRadioButton" name="rd_from_first">
@@ -349,15 +349,28 @@ border-radius:6px;</string>
        <string>From end of data set</string>
       </property>
      </widget>
+     <widget class="QRadioButton" name="rd_from_random">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>40</y>
+        <width>121</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Choose random</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QGroupBox" name="grp_step3">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>320</y>
+      <y>330</y>
       <width>431</width>
-      <height>141</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="title">
@@ -393,7 +406,7 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>333</x>
-       <y>110</y>
+       <y>100</y>
        <width>75</width>
        <height>26</height>
       </rect>
@@ -433,7 +446,7 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
+       <y>110</y>
        <width>41</width>
        <height>20</height>
       </rect>
@@ -446,7 +459,83 @@ border-radius:6px;</string>
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>120</y>
+       <y>110</y>
+       <width>221</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border:0;</string>
+     </property>
+     <property name="text">
+      <string>Waiting...</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="grp_step4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>470</y>
+      <width>431</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Step 4 - Start Testing</string>
+    </property>
+    <widget class="QLabel" name="lbl_step4_info">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>301</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Click on Test it! button to see the error rate of test data</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btn_begin_test">
+     <property name="geometry">
+      <rect>
+       <x>333</x>
+       <y>70</y>
+       <width>75</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:#3498DB;
+color:#FFF;
+border-radius:6px;</string>
+     </property>
+     <property name="text">
+      <string>Test it!</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Status:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lbl_step4_status">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>80</y>
        <width>221</width>
        <height>20</height>
       </rect>
@@ -465,7 +554,7 @@ border-radius:6px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>818</width>
+     <width>812</width>
      <height>21</height>
     </rect>
    </property>

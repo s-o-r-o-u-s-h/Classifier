@@ -1,6 +1,6 @@
 __author__ = 'soroush'
 from PyQt4 import QtGui, uic
-from core import training, dtree
+from core import training, testing
 
 form_ui = uic.loadUiType("ui/mainWindow.ui")[0]
 
@@ -17,10 +17,12 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.rd_last.setChecked(True)
         self.rd_from_first.setChecked(True)
         self.tree = None
+        self.testing = None
         self.sldr_data.valueChanged.connect(self.slider_value)
         self.btn_choose_dataset.clicked.connect(self.check_file)
         self.btn_split_data.clicked.connect(self.split_tr_data)
         self.btn_begin_train.clicked.connect(self.begin_training)
+        self.btn_begin_test.clicked.connect(self.begin_testing)
         self.show_step(self.grp_step1)
 
         '''     set shortcuts for menu items    '''
@@ -40,12 +42,14 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.grp_step1.hide()
         self.grp_step2.hide()
         self.grp_step3.hide()
+        self.grp_step4.hide()
         a.show()
 
     def show_steps(self, a, b):
         self.grp_step1.hide()
         self.grp_step2.hide()
         self.grp_step3.hide()
+        self.grp_step4.hide()
         a.show()
         b.show()
 
@@ -69,6 +73,8 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
             self.selection_type = 'F'
         elif self.rd_from_end.isChecked():
             self.selection_type = 'E'
+        elif self.rd_from_random.isChecked():
+            self.selection_type = 'R'
 
     def set_class_col(self):
         if self.rd_first.isChecked():
@@ -92,6 +98,12 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
 
     def begin_training(self):
         self.show_step(self.grp_step3)
-        self.tree = self.tr.start_training()
+        c, d, e = self.tr.start_training()
         self.lbl_step3_status.setText('Tree created successfully!')
         self.lbl_step3_status.setStyleSheet("color:green;")
+        self.show_step(self.grp_step4)
+        self.testing = testing.Testing(c, d, e)
+
+    def begin_testing(self):
+        self.lbl_step4_status.setText(str(self.testing.start_testing())+' errors')
+        pass
