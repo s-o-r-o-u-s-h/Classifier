@@ -19,14 +19,14 @@ class Training():
         self.temp_array = numpy.array((0, 1))                              # just a temporary array for setting Inf gain
         if self.selection_mode == 'F':
             self.training_array = self.data_array[0:self.train_rows, 0:5]
-            self.testing_array = self.data_array[self.total_rows-self.train_rows:self.total_rows, 0:5]
+            self.testing_array = self.data_array[self.train_rows:self.total_rows, 0:5]
         elif self.selection_mode == 'E':
             self.training_array = self.data_array[self.total_rows-self.train_rows-1:self.total_rows, 0:5]
             self.testing_array = self.data_array[0:self.train_rows, 0:5]
         elif self.selection_mode == 'R':
             tmp_array = numpy.random.permutation(self.data_array)
             self.training_array = tmp_array[0:self.train_rows, 0:5]
-            self.testing_array = tmp_array[self.total_rows-self.train_rows:self.total_rows, 0:5]
+            self.testing_array = tmp_array[self.train_rows:self.total_rows, 0:5]
 
     def set_class_col(self):
         if self.class_col == 'first':

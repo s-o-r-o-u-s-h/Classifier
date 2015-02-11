@@ -1,6 +1,4 @@
 __author__ = 'soroush'
-import numpy
-from core import dtree
 
 
 class Testing():
@@ -16,7 +14,8 @@ class Testing():
         for i in range(0, self.tree_shape[0]):
             row = self.test_data[i, :]
             self.test_it(row, self.d_tree)
-        return self.error
+        print(self.tree_shape[0])
+        return (self.error/self.tree_shape[0])*100
 
     def test_it(self, row, tree):
             val = tree.attr_name

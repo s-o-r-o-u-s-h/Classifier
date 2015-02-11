@@ -1,6 +1,7 @@
 __author__ = 'soroush'
 from PyQt4 import QtGui, uic
 from core import training, testing
+from math import sqrt
 
 form_ui = uic.loadUiType("ui/mainWindow.ui")[0]
 
@@ -43,6 +44,7 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.grp_step2.hide()
         self.grp_step3.hide()
         self.grp_step4.hide()
+        self.grp_results.hide()
         a.show()
 
     def show_steps(self, a, b):
@@ -50,6 +52,7 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.grp_step2.hide()
         self.grp_step3.hide()
         self.grp_step4.hide()
+        self.grp_results.hide()
         a.show()
         b.show()
 
@@ -105,5 +108,15 @@ class PrimaryWindow(QtGui.QMainWindow, form_ui):
         self.testing = testing.Testing(c, d, e)
 
     def begin_testing(self):
-        self.lbl_step4_status.setText(str(self.testing.start_testing())+' errors')
+        error = self.testing.start_testing()
+        self.lbl_step4_status.setText("{0:.3f}".format(error)+'% of test data is error')
+        self.show_steps(self.grp_step4, self.grp_results)
+        predict = 100-error
+        self.lbl_predict.setText("{0:.3f}".format(predict)+'%')
+        standard = sqrt((error/100)*(predict/100)/100)
+        self.lbl_standard.setText("{0:.3f}".format(standard))
+        up_bound = predict+(1.96*standard)
+        down_bound = predict-(1.96*standard)
+        self.lbl_up_bound.setText("{0:.3f}".format(up_bound))
+        self.lbl_down_bound.setText("{0:.3f}".format(down_bound))
         pass
